@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/cadastro_screen.dart';
+import "screens/telainicial_screen.dart";
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +16,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pizzaria Carioca\'s',
       theme: ThemeData(primarySwatch: Colors.orange),
-      initialRoute: '/',
+      home: const LoginScreen(),
       routes: {
-        '/': (context) => const LoginScreen(),
-        '/cadastro': (context) =>  CadastroScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/cadastro': (context) => CadastroScreen(),
       },
     );
   }

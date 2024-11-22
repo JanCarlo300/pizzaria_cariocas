@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class CadastroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CadastroScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 60,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo.png'),
+                  backgroundImage: AssetImage('logocariocas.jpg'),
                 ),
                 SizedBox(height: 16),
                 // Título
@@ -132,6 +133,8 @@ class CadastroScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             // Navegar para tela de login
+                              // Link para Cadastro
+                            Navigator.pushNamed(context, '/login_screen');
                           },
                           child: Text(
                             'Já tem conta? Fazer login',

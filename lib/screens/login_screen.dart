@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pizzaria_cariocas/screens/telainicial_screen.dart';
+import 'tela_inicial.dart'; // Certifique-se de ter o arquivo da tela inicial criado
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,11 +18,8 @@ class LoginScreen extends StatelessWidget {
               // Logo da Pizzaria
               CircleAvatar(
                 radius: 60,
-                backgroundColor: Colors.white,
-                child: Image.asset(
-                  'assets/images/logo.png', // Substitua pelo seu logo
-                  fit: BoxFit.cover,
-                  height: 90,
+                backgroundImage: AssetImage(
+                  'assets/images/logocariocas.jpg',
                 ),
               ),
               const SizedBox(height: 30),
@@ -71,7 +70,13 @@ class LoginScreen extends StatelessWidget {
                     // Botão de Entrar
                     ElevatedButton(
                       onPressed: () {
-                        // Ação de login
+                        // Redirecionar para a Tela Inicial
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TelaInicial(), // Tela Inicial
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
