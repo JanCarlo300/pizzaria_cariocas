@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/cadastro_screen.dart';
-import "screens/telainicial_screen.dart";
+import 'screens/telainicial_screen.dart';
+import 'screens/pizza_especial_screen.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginScreen(),
         '/cadastro': (context) => CadastroScreen(),
+        '/telainicial': (context) => TelaInicial(),
+        '/pizza_especial': (context) => PizzaEspecialScreen(), 
       },
     );
   }

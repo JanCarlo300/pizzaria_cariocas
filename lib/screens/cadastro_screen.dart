@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'login_screen.dart';
 
 class CadastroScreen extends StatelessWidget {
   @override
@@ -13,140 +13,147 @@ class CadastroScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo
+                // Logo da Pizzaria
                 CircleAvatar(
                   radius: 60,
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('logocariocas.jpg'),
-                ),
-                SizedBox(height: 16),
-                // Título
-                Text(
-                  'Cadastre-se',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  backgroundImage: AssetImage(
+                    'assets/images/logocariocas.jpg',
                   ),
                 ),
-                SizedBox(height: 16),
-                // Formulário
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                const SizedBox(height: 30),
+                // Formulário de Cadastro
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade100,
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  elevation: 8,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0, vertical: 16.0),
-                    child: Column(
-                      children: [
-                        // Nome Completo
-                        TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person),
-                            labelText: 'Nome Completo',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text(
+                        'CADASTRE-SE!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Nome Completo
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Nome Completo',
+                          prefixIcon: const Icon(Icons.person),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        // Email
-                        TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: 'Email',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Email
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        // Senha
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: 'Senha',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 20),
+                      // Senha
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          prefixIcon: const Icon(Icons.lock),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        // Confirmar Senha
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: 'Confirmar senha',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Confirmar Senha
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Confirmar Senha',
+                          prefixIcon: const Icon(Icons.lock),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        // Telefone
-                        TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.phone),
-                            labelText: 'Telefone',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Telefone
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Telefone',
+                          prefixIcon: const Icon(Icons.phone),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 12),
-                        // Endereço
-                        TextField(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.location_on),
-                            labelText: 'Endereço',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                      ),
+                      const SizedBox(height: 20),
+                      // Endereço
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Endereço',
+                          prefixIcon: const Icon(Icons.location_on),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        SizedBox(height: 16),
-                        // Botão de cadastro
-                        ElevatedButton(
-                          onPressed: () {
-                            // Implementar lógica de cadastro
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      const SizedBox(height: 20),
+                      // Botão de Cadastro
+                      ElevatedButton(
+                        onPressed: () {
+                          // Implementar lógica de cadastro
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Center(
-                            child: Text(
-                              'Cadastrar',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
-                        SizedBox(height: 16),
-                        // Texto para login
-                        GestureDetector(
-                          onTap: () {
-                            // Navegar para tela de login
-                              // Link para Cadastro
-                            Navigator.pushNamed(context, '/login_screen');
-                          },
-                          child: Text(
-                            'Já tem conta? Fazer login',
-                            style: TextStyle(
-                              color: Colors.orange.shade600,
-                              fontSize: 16,
-                              decoration: TextDecoration.underline,
+                        child: const Text(
+                          'CADASTRAR',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Divider(),
+                      // Link para Login
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Já tem uma conta? '),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Faça Login',
+                              style: TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

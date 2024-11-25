@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(PizzariaApp());
-}
-
-class PizzariaApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: TelaInicial(),
-    );
-  }
-}
-
 class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,13 +8,29 @@ class TelaInicial extends StatelessWidget {
         backgroundColor: Colors.orange,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          "Cariocas's",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage('assets/images/logocariocas.jpg'),
+            ),
+            SizedBox(width: 8),
+            Text(
+              "Cariocas's",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/login');
+          },
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 16),
             child: Icon(Icons.shopping_cart_outlined, size: 28),
           ),
         ],
@@ -36,16 +38,13 @@ class TelaInicial extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Logo e Oferta Especial
+            // Oferta Especial
             Container(
-              color: Colors.orange,
+              color: Colors.orange.shade300,
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('logocariocas.jpg'),
-                    radius: 60,
-                  ),
-                  SizedBox(height: 8),
                   Text(
                     'OFERTA ESPECIAL!',
                     style: TextStyle(
@@ -73,7 +72,6 @@ class TelaInicial extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                     ),
                     onPressed: () {
-                      // Ação do botão "Pedir Agora"
                       print("Botão 'Pedir Agora' pressionado!");
                     },
                     child: Text(
@@ -84,7 +82,6 @@ class TelaInicial extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
                 ],
               ),
             ),
@@ -103,34 +100,33 @@ class TelaInicial extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  // Abas do menu
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _menuTab('Tradicionais', true),
-                      _menuTab('Especiais', false),
-                      _menuTab('Doces', false),
-                      _menuTab('Refrigerante', false),
+                      _menuTab('Tradicionais', true, context),
+                      _menuTab('Especiais', false, context),
+                      _menuTab('Doces', false, context),
+                      _menuTab('Refrigerante', false, context),
                     ],
                   ),
                   SizedBox(height: 20),
-                  // Lista de Pizzas
+                  // Itens de Pizza
                   _pizzaItem(
-                    image: 'assets/images/calabresa.png',
+                    image: 'assets/images/calabresa.jpg',
                     name: 'Calabresa',
                     description:
                         'Molho, mussarela, calabresa, cebola, pimentão, azeitona e orégano',
                     price: 50.00,
                   ),
                   _pizzaItem(
-                    image: 'assets/images/bacon.png',
+                    image: 'assets/images/bacon.jpg',
                     name: 'Bacon',
                     description:
                         'Molho, mussarela, tomate, bacon, azeitona e orégano',
                     price: 50.00,
                   ),
                   _pizzaItem(
-                    image: 'assets/images/4queijos.png',
+                    image: 'assets/images/4queijos.jpg',
                     name: '4 Queijos',
                     description:
                         'Molho branco, mussarela, provolone, parmesão e orégano',
@@ -167,11 +163,15 @@ class TelaInicial extends StatelessWidget {
     );
   }
 
-  // Widget para cada aba do menu
-  Widget _menuTab(String title, bool isSelected) {
+  Widget _menuTab(String title, bool isSelected, BuildContext context) {
     return TextButton(
       onPressed: () {
-        // Implementar troca de aba
+        if (title == "Especiais") {
+          Navigator.pushNamed(context, '/pizza_especial');
+        } else {
+          print("Aba '$title' selecionada");
+          // Implementar outras ações para os outros botões aqui
+        }
       },
       child: Text(
         title,
@@ -183,7 +183,6 @@ class TelaInicial extends StatelessWidget {
     );
   }
 
-  // Widget para cada item de pizza
   Widget _pizzaItem({
     required String image,
     required String name,
