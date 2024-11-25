@@ -113,7 +113,13 @@ class CadastroScreen extends StatelessWidget {
                       // Botão de Cadastro
                       ElevatedButton(
                         onPressed: () {
-                          // Implementar lógica de cadastro
+                          // Navegar para a tela de login após cadastro
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
