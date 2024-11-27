@@ -5,6 +5,7 @@ import 'screens/telainicial_screen.dart';
 import 'screens/pizza_especial_screen.dart';
 import 'screens/doces_screen.dart';
 import 'screens/refrigerantes_screen.dart';
+import 'screens/tela_carrinho.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/pizza_especial': (context) => PizzaEspecialScreen(),
         '/doces': (context) => TelaDoces(),
         '/refrigerantes': (context) => TelaRefrigerantes(),
+        '/carrinho': (context) => TelaCarrinho(cartItems: [],), 
       },
     );
   }

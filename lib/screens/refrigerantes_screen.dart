@@ -99,7 +99,7 @@ class TelaRefrigerantes extends StatelessWidget {
               child: ListView(
                 children: [
                   _menuItem(
-                    image: 'assets/images/coca.jpg',
+                    image: 'assets/images/coca_cola.jpg',
                     name: 'Coca Cola 2lt',
                     price: 40.00,
                     onPressed: () {

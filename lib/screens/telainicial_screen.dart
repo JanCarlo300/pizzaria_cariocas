@@ -6,10 +6,10 @@ class TelaInicial extends StatefulWidget {
 }
 
 class _TelaInicialState extends State<TelaInicial> {
-  // Índice da aba atualmente selecionada
   int _selectedTabIndex = 0;
 
-  // Dados de exemplo para cada aba
+  List<Map<String, dynamic>> _cartItems = [];
+
   final List<Map<String, dynamic>> _menuData = [
     {
       'title': 'Tradicionais',
@@ -81,6 +81,19 @@ class _TelaInicialState extends State<TelaInicial> {
     },
   ];
 
+  void _addToCart(Map<String, dynamic> item) {
+    setState(() {
+      _cartItems.add(item);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${item['name']} adicionado ao carrinho!"),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,45 +124,116 @@ class _TelaInicialState extends State<TelaInicial> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: Icon(Icons.shopping_cart_outlined, size: 28),
+            child: Stack(
+              children: [
+                Icon(Icons.shopping_cart_outlined, size: 28),
+                if (_cartItems.isNotEmpty)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        _cartItems.length.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Nosso Menu',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orange,
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          children: [
+            // Oferta Especial
+            Container(
+              color: Colors.orange.shade300,
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              child: Column(
                 children: [
-                  _menuTab('Tradicionais', 0),
-                  _menuTab('Especiais', 1),
-                  _menuTab('Doces', 2),
-                  _menuTab('Refrigerante', 3),
+                  Text(
+                    'OFERTA ESPECIAL!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'PIZZA À MODA + REFRIGERANTE 2L\nR\$ 49,90',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.yellow.shade700,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    ),
+                    onPressed: () {
+                      print("Botão 'Pedir Agora' pressionado!");
+                    },
+                    child: Text(
+                      "PEDIR AGORA",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 20),
-              ..._menuData[_selectedTabIndex]['items'].map((item) {
-                return _pizzaItem(
-                  image: item['image'],
-                  name: item['name'],
-                  description: item['description'],
-                  price: item['price'],
-                );
-              }).toList(),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Nosso Menu',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _menuTab('Tradicionais', 0),
+                      _menuTab('Especiais', 1),
+                      _menuTab('Doces', 2),
+                      _menuTab('Refrigerante', 3),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  ..._menuData[_selectedTabIndex]['items'].map((item) {
+                    return _pizzaItem(
+                      image: item['image'],
+                      name: item['name'],
+                      description: item['description'],
+                      price: item['price'],
+                      onAddToCart: () => _addToCart(item),
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -201,6 +285,7 @@ class _TelaInicialState extends State<TelaInicial> {
     required String name,
     required String description,
     required double price,
+    required VoidCallback onAddToCart,
   }) {
     return Card(
       margin: EdgeInsets.only(bottom: 16),
@@ -250,9 +335,7 @@ class _TelaInicialState extends State<TelaInicial> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                print("Adicionar '$name' ao carrinho");
-              },
+              onPressed: onAddToCart,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
