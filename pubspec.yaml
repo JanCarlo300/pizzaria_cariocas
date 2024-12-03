@@ -1,15 +1,39 @@
 name: pizzaria_cariocas
 description: Projeto Flutter para Pizzaria Carioca's
 
+version: 1.0.0+1
+
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ^3.4.4
 
 dependencies:
   flutter:
     sdk: flutter
+
+  # Dependências úteis para o projeto
+  collection: ^1.18.0
+  flutter_masked_text2: ^0.9.1
+  cupertino_icons: ^1.0.8
+  geolocator: ^13.0.1
+  provider: ^6.1.2 # Gerenciamento de estado
+  http: ^0.13.6 # Chamadas HTTP para APIs
+
+  # Dependências adicionais
+  shared_preferences: ^2.1.0 # Armazenamento local
+  cached_network_image: ^3.2.3 # Imagens com cache
+  flutter_svg: ^1.1.6 # Suporte a arquivos SVG
+  animations: ^2.0.6 # Animações avançadas do Flutter
+
+dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
+  leak_tracker: ^10.0.4
+  leak_tracker_flutter_testing: ^3.0.3
+  flutter_lints: ^4.0.0 # Boas práticas de código
 
 flutter:
+  uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/ # Imagens utilizadas no projeto

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'tela_carrinho_pagamento.dart'; // Import da tela de pagamento
+import 'tela_carrinho_pagamento.dart'; 
 
 class TelaCarrinho extends StatefulWidget {
   final List<Map<String, dynamic>> cartItems;
