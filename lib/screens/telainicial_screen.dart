@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pizzaria_cariocas/screens/tela_carrinho.dart';
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _TelaInicialState extends State<TelaInicial> {
 
   final List<Map<String, dynamic>> _menuData = [
     {
+      
       'title': 'Tradicionais',
       'items': [
         {
@@ -97,56 +99,66 @@ class _TelaInicialState extends State<TelaInicial> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange,
-        elevation: 0,
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 24,
-              backgroundImage: AssetImage('assets/images/logocariocas.jpg'),
-            ),
-            SizedBox(width: 8),
-            Text(
-              "Cariocas's",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+appBar: AppBar(
+  backgroundColor: Colors.orange,
+  elevation: 0,
+  centerTitle: true,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      CircleAvatar(
+        radius: 24,
+        backgroundImage: AssetImage('assets/images/logocariocas.jpg'),
+      ),
+      SizedBox(width: 8),
+      Text(
+        "Cariocas's",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
+    ],
+  ),
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back),
+    onPressed: () {
+      Navigator.pushReplacementNamed(context, '/login');
+    },
+  ),
+ actions: [
+  Padding(
+    padding: const EdgeInsets.only(right: 16),
+    child: Stack(
+      children: [
+        IconButton(
+          icon: Icon(Icons.shopping_cart_outlined, size: 28),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/login');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TelaCarrinho(cartItems: [],)),
+            );
           },
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Stack(
-              children: [
-                Icon(Icons.shopping_cart_outlined, size: 28),
-                if (_cartItems.isNotEmpty)
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        _cartItems.length.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  ),
-              ],
+        if (_cartItems.isNotEmpty)
+          Positioned(
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                _cartItems.length.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
             ),
           ),
-        ],
-      ),
+      ],
+    ),
+  ),
+],
+
+),
+
       body: SingleChildScrollView(
         child: Column(
           children: [

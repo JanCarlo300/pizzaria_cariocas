@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tela_carrinho_pagamento.dart'; // Import da tela de pagamento
 
 class TelaCarrinho extends StatefulWidget {
   final List<Map<String, dynamic>> cartItems;
@@ -10,13 +11,41 @@ class TelaCarrinho extends StatefulWidget {
 }
 
 class _TelaCarrinhoState extends State<TelaCarrinho> {
-  List<Map<String, dynamic>> get _carrinho => widget.cartItems;
+  late List<Map<String, dynamic>> _carrinho;
+
+  @override
+  void initState() {
+    super.initState();
+    _carrinho = widget.cartItems;
+
+    // Adicionar itens estáticos ao carrinho
+    _carrinho.addAll([
+      {
+        'name': 'Pizza Calabresa',
+        'price': 45.00,
+        'quantity': 1,
+        'image': 'assets/images/calabresa.jpg',
+      },
+      {
+        'name': 'Coca-Cola',
+        'price': 7.00,
+        'quantity': 1,
+        'image': 'assets/images/coca_cola.jpg',
+      },
+      {
+        'name': 'Bolo no Pote',
+        'price': 40.00,
+        'quantity': 1,
+        'image': 'assets/images/bolo_pote.jpg',
+      },
+    ]);
+  }
 
   double get _subtotal => _carrinho.fold(
       0, (total, item) => total + (item['price'] * item['quantity']));
 
-  double _taxas = 5.00; // Taxa fixa para exemplo
-  double _frete = 3.00; // Frete fixo para exemplo
+  double _taxas = 5.00; // Taxa fixa
+  double _frete = 3.00; // Frete fixo
 
   double get _total => _subtotal + _taxas + _frete;
 
@@ -26,25 +55,26 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         centerTitle: true,
-        title: Text(
-          'Carrinho de Compras',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 24,
+              backgroundImage: AssetImage('assets/images/logocariocas.jpg'),
+            ),
+            SizedBox(width: 8),
+            Text(
+              "Carrinho de Compras",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.menu),
             onPressed: () {
-              // Ação para abrir menu (opcional)
+              // Ação para abrir menu
             },
           ),
         ],
@@ -89,7 +119,8 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                                 // Informações do produto
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         item['name'],
@@ -184,18 +215,6 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                   ),
                 ),
               SizedBox(height: 16),
-              // Observações
-              if (_carrinho.isNotEmpty)
-                TextField(
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                    labelText: 'Observações sobre o pedido',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              SizedBox(height: 16),
               // Botões de ação
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,7 +237,16 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                   if (_carrinho.isNotEmpty)
                     ElevatedButton(
                       onPressed: () {
-                        print('Finalizar Compra');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TelaCarrinhoPagamento(
+                              subtotal: _subtotal,
+                              taxaEntrega: _frete,
+                              descontoCupom: 0.0, // Ajustar cupom se necessário
+                            ),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
@@ -227,7 +255,7 @@ class _TelaCarrinhoState extends State<TelaCarrinho> {
                         ),
                       ),
                       child: Text(
-                        'Confirmar',
+                        'Continuar para Pagamento',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
